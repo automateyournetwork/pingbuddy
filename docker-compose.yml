@@ -1,0 +1,22 @@
+---
+version: '3'
+ 
+services:
+  ping_buddy:
+    image: johncapobianco/ping_buddy:ping_buddy
+    container_name: ping_buddy
+    restart: always        
+    build: 
+      context: ./
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - "8506:8506"
+    volumes:
+      - ./config.toml:/root/.streamlit/config.toml
+    networks:
+      - all-plugins-nginx-proxy_app_network
+
+networks:
+  all-plugins-nginx-proxy_app_network:
+    external: true
+    driver: bridge
